@@ -61,7 +61,7 @@ Antes de fazer deploy, adicione em **Environment Variables**:
 NEXT_PUBLIC_SUPABASE_URL        = https://nqfldsqwwboixsivvsle.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY   = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 SUPABASE_SERVICE_ROLE_KEY       = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-GROQ_API_KEY                    = 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
+GROQ_API_KEY                    = sua_chave_aqui
 ```
 
 Quando tiver o Stripe, adicione também:
