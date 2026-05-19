@@ -3,7 +3,7 @@ import { supabase } from '../lib/supabase'
 import Head from 'next/head'
 
 // ⚠️ COLOQUE SEU EMAIL AQUI — só você terá acesso
-const ADMIN_EMAIL = 'souzavivo@gmail.com'
+const ADMIN_EMAIL = 'juninhozika510@gmail.com'
 
 const PLANOS = ['gratuito', 'presenca', 'legado']
 const LABEL_PLANO = {
