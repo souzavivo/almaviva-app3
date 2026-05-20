@@ -42,19 +42,21 @@ export default function Admin() {
 
   async function carregarDados() {
     setLoading(true)
-    const { data: perfis } = await supabase
-      .from('profiles')
-      .select(`*, usage_control(messages_this_month, messages_today), memorials(count)`)
-      .order('created_at', { ascending: false })
-
-    setUsuarios(perfis || [])
-
-    // Stats gerais
-    const total = perfis?.length || 0
-    const gratuitos = perfis?.filter(p => p.plan === 'gratuito').length || 0
-    const pagantes  = perfis?.filter(p => p.plan !== 'gratuito').length || 0
-    const mensagensHoje = perfis?.reduce((acc, p) => acc + (p.usage_control?.[0]?.messages_today || 0), 0) || 0
-    setStats({ total, gratuitos, pagantes, mensagensHoje })
+    try {
+      const res = await fetch('/api/admin-users', {
+        headers: { 'x-admin-email': ADMIN_EMAIL }
+      })
+      const data = await res.json()
+      const perfis = data.perfis || []
+      setUsuarios(perfis)
+      const total = perfis.length
+      const gratuitos = perfis.filter(p => !p.plan || p.plan === 'gratuito').length
+      const pagantes  = perfis.filter(p => p.plan && p.plan !== 'gratuito').length
+      const mensagensHoje = perfis.reduce((acc, p) => acc + (p.usage_control?.[0]?.messages_today || 0), 0)
+      setStats({ total, gratuitos, pagantes, mensagensHoje })
+    } catch(err) {
+      console.error('Erro admin:', err)
+    }
     setLoading(false)
   }
 
