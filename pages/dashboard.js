@@ -37,7 +37,7 @@ export default function Dashboard() {
 
   async function sair() {
     await supabase.auth.signOut()
-    window.location.href = '/'
+    window.location.href = '/login'
   }
 
   const planoAtual = perfil?.plan || 'gratuito'
@@ -62,7 +62,8 @@ export default function Dashboard() {
         :root{--cream:#F7F2EA;--cream2:#EFE9DC;--ink:#18130E;--muted:#7A6B5C;--gold:#B8976A;--gold2:#D4B896}
         body{background:var(--cream);font-family:'DM Sans',sans-serif}
         nav{padding:0 48px;height:64px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(184,151,106,0.15)}
-        .logo{font-family:'Cormorant Garamond',serif;font-size:22px;letter-spacing:3px;color:var(--ink);text-decoration:none}
+        /* FIX 4: logo como link simples sem erro */
+        .logo{font-family:'Cormorant Garamond',serif;font-size:22px;letter-spacing:3px;color:var(--ink);text-decoration:none;cursor:pointer}
         .logo span{color:var(--gold)}
         .nav-r{display:flex;align-items:center;gap:16px}
         .badge{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:20px;border:1px solid var(--gold);color:var(--gold)}
@@ -117,7 +118,8 @@ export default function Dashboard() {
       `}</style>
 
       <nav>
-        <a href="/" className="logo">alma<span>viva</span></a>
+        {/* FIX 4: logo sem erro — só texto sem link quebrado */}
+        <span className="logo">alma<span>viva</span></span>
         <div className="nav-r">
           <span className="badge">{info.label}</span>
           <span className="nav-u">{perfil?.name || user?.email?.split('@')[0]}</span>
@@ -126,7 +128,6 @@ export default function Dashboard() {
       </nav>
 
       <main>
-        {/* BARRA DE USO */}
         <div className="uso">
           <div className="uso-info">
             <div className="uso-label">Mensagens usadas</div>
@@ -148,7 +149,6 @@ export default function Dashboard() {
           )}
         </div>
 
-        {/* MEMORIAIS */}
         <h1>Seus memoriais</h1>
         <p className="sub">Clique para conversar.</p>
         <div className="grid">
@@ -163,7 +163,8 @@ export default function Dashboard() {
           {podecriar ? (
             <Link href="/criar-memorial" className="criar">
               <div className="ci">+</div>
-              <div className="ct"><strong>Criar memorial</strong>Preserve mais uma presença</div>
+              {/* FIX 5: texto atualizado */}
+              <div className="ct"><strong>Criar meu memorial grátis</strong>Preserve mais uma presença</div>
             </Link>
           ) : (
             <div className="criar" style={{cursor:'default',opacity:.5}}>
@@ -173,7 +174,6 @@ export default function Dashboard() {
           )}
         </div>
 
-        {/* PLANOS — só para gratuito */}
         {planoAtual === 'gratuito' && (
           <div className="planos">
             <h2>Escolha seu plano</h2>
